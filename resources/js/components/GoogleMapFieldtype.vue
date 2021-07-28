@@ -6,7 +6,7 @@
             <div><a v-if="hasMarker" href="#" @click.prevent="removeMarker" class="text-red text-xs">[x] Remove marker</a></div>
             <div><a v-if="canReset && mapHasChanged" href="#" @click.prevent="resetMap" class="text-red text-xs">[-] Reset map</a></div>
         </div>
-        <div class="my-2">
+        <div v-if="this.meta.pro" class="my-2">
             <div v-show="stylesExpanded">
                 <div class="help-block"><p>Paste in the styles as JSON.</p></div>
                 <textarea-input v-model="style"></textarea-input>

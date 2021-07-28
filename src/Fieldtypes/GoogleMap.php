@@ -38,9 +38,12 @@ class GoogleMap extends Fieldtype
 
     public function preload()
     {
+        $addon = Addon::get('jezzdk/statamic-google-maps');
+
         return [
             'defaultLat' => MapHelper::defaultLatitude(),
             'defaultLng' => MapHelper::defaultLongitude(),
+            'pro' => $addon->edition() === 'pro',
         ];
     }
 
