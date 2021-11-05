@@ -9,17 +9,17 @@ class MapHelper
 {
     public static function defaultLatitude()
     {
-        return env('GOOGLE_MAPS_DEFAULT_LAT', 0);
+        return config('google_maps.default_lat');
     }
 
     public static function defaultLongitude()
     {
-        return env('GOOGLE_MAPS_DEFAULT_LNG', 0);
+        return config('google_maps.default_lng');
     }
 
     public static function googleMapsScriptUrl()
     {
-        return 'https://maps.googleapis.com/maps/api/js?libraries=places&key=' . env('GOOGLE_MAPS_API_KEY', 'google-maps-api-key-not-set');
+        return 'https://maps.googleapis.com/maps/api/js?libraries=places&key=' . config('google_maps.api_key');
     }
 
     public static function convertToHtml(array $params)

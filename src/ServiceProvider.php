@@ -26,6 +26,10 @@ class ServiceProvider extends AddonServiceProvider
             MapHelper::googleMapsScriptUrl()
         ];
 
+        $this->publishes([
+          __DIR__.'/../config/google_maps.php' => config_path('google_maps.php'),
+        ]);
+
         parent::boot();
     }
 }
