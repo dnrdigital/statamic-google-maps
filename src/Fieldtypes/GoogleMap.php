@@ -33,6 +33,8 @@ class GoogleMap extends Fieldtype
 
     public function augment($value)
     {
+        $value['showControls'] = $this->config('showControls', false);
+
         return MapHelper::convertToHtml($value);
     }
 
@@ -120,6 +122,13 @@ class GoogleMap extends Fieldtype
                 'default' => false,
                 'width' => 50
             ],
+            'showControls' => [
+                'display' => 'Show controls',
+                'instructions' => 'Display the map with the default Google Map controls.',
+                'type' => 'toggle',
+                'default' => false,
+                'width' => 50
+            ]
         ];
     }
 }

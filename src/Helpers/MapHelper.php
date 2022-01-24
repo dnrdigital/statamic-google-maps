@@ -51,6 +51,7 @@ class MapHelper
             'type' => $type,
             'icon' => $icon,
             'style' => $style,
+            'showControls' => $showControls,
         ] = $params;
 
         // Return the HTML
@@ -61,7 +62,7 @@ class MapHelper
             let map = new google.maps.Map(document.getElementById("' . $id . '"), {
                 center: { lat: ' . $lat. ', lng: ' . $lng . ' },
                 zoom: ' . $zoom . ',
-                disableDefaultUI: true,
+                disableDefaultUI: ' . (!empty($showControls) ? 'false' : 'true') . ',
                 mapTypeId: "' . $type . '",
                 styles: ' . ($style ?? '[]') . ',
             });
