@@ -237,7 +237,7 @@ export default {
 </svg>`
             locationButton.style.margin = '10px'
             locationButton.style.padding = '8px'
-            locationButton.style.minWidth = '40px'
+            locationButton.style.width = '40px'
             locationButton.style.boxShadow = 'rgba(0, 0, 0, 0.3) 0px 1px 4px -1px'
             locationButton.style.backgroundColor = '#FFFFFF'
             locationButton.addEventListener("mouseover", () => locationButton.style.backgroundColor = '#EFEFEF')
