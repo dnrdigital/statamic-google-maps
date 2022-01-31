@@ -60,6 +60,7 @@ The Map tag supports the following attributes:
 | type | string | roadmap | Valid values are: `roadmap`, `satellite`, `terrain`, `hybrid` |
 | icon | string | /assets/marker.png | (Pro feature) Use a path relative to the public folder. If the file doesn't exist, the default Google Map pin will be used. |
 | style | string | _none_ | (Pro feature) The map styles as a JSON string |
+| showControls | boolean | false | Show the default map controls |
 
 ### Google Map Field (Pro feature)
 

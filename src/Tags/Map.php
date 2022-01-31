@@ -17,7 +17,7 @@ class Map extends Tags
      * The {{ map }} tag.
      *
      * Usage:
-     * {{ map lat="12.1234" lng="52.1234" zoom="14" marker="true" markerLat="12.1243" markerLng="52.1243" type="satellite" }}
+     * {{ map lat="12.1234" lng="52.1234" zoom="14" marker="true" markerLat="12.1243" markerLng="52.1243" type="satellite" showControls="true" }}
      *
      * @return string|array
      */
@@ -45,6 +45,7 @@ class Map extends Tags
             'type' => $this->getType(),
             'icon' => $this->getIcon(),
             'style' => $this->getStyle(),
+            'showControls' => $this->getShowControls(),
         ]);
     }
 
@@ -118,5 +119,10 @@ class Map extends Tags
         }
 
         return $this->params->get('style');
+    }
+
+    protected function getShowControls()
+    {
+        return $this->params->get('showControls', false);
     }
 }
