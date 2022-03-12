@@ -23,7 +23,7 @@ class Map extends Tags
      */
     public function index()
     {
-        if (!env('GOOGLE_MAPS_API_KEY')) {
+        if (!config('google_maps.api_key')) {
             return 'Please add a GOOGLE_MAPS_API_KEY to the .env file';
         }
 
