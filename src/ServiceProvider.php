@@ -32,4 +32,12 @@ class ServiceProvider extends AddonServiceProvider
 
         parent::boot();
     }
+
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/google_maps.php',
+            'google_maps'
+        );
+    }
 }
