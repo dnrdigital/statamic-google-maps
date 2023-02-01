@@ -19,7 +19,13 @@ class MapHelper
 
     public static function googleMapsScriptUrl()
     {
-        return 'https://maps.googleapis.com/maps/api/js?libraries=places&key=' . config('google_maps.api_key');
+        $params = [
+            'callback' => 'Function.prototype',
+            'libraries' => 'places',
+            'key' => config('google_maps.api_key'),
+        ];
+        
+        return 'https://maps.googleapis.com/maps/api/js?' . http_build_query($params);
     }
 
     public static function convertToHtml(array $params)
