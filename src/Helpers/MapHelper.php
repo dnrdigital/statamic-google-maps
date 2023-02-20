@@ -41,6 +41,9 @@ class MapHelper
             'height' => '100%',
             'markerLat' => null,
             'markerLng' => null,
+            'markers' => [ 
+                [ null, null ], 
+            ]
             'icon' => $addon->edition() === 'pro' ? '/assets/marker.png' : null,
             'style' => null,
         ], $params);
@@ -52,6 +55,7 @@ class MapHelper
             'zoom' => $zoom,
             'markerLat' => $markerLat,
             'markerLng' => $markerLng,
+            'markers' => $markers[], 
             'width' => $width,
             'height' => $height,
             'type' => $type,
