@@ -43,7 +43,7 @@ class MapHelper
             'markerLng' => null,
             'markers' => [ 
                 [ null, null ], 
-            ]
+            ],
             'icon' => $addon->edition() === 'pro' ? '/assets/marker.png' : null,
             'style' => null,
         ], $params);
