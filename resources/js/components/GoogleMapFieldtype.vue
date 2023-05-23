@@ -3,14 +3,17 @@
         <input v-if="hasGeocoder" type="text" v-model="location" @keyup.enter="findPosition" placeholder="Search location" class="input-text">
         <div class="w-full h-96" ref="map"></div>
         <div class="flex justify-between">
-            <div><a v-if="hasMarker" href="#" @click.prevent="removeMarker" class="text-red text-xs">[x] Remove marker</a></div>
-            <div><a v-if="canReset && mapHasChanged" href="#" @click.prevent="resetMap" class="text-red text-xs">[-] Reset map</a></div>
+            <div>
+                <a v-if="hasMarker" href="#" @click.prevent="removeMarker" class="!text-red-400 text-xs">[x] Remove marker</a>
+                <a v-else-if="config.markers" href="#" @click.prevent="addMarker(map.getCenter())" class="text-xs">[+] Add marker</a>
+            </div>
+            <div><a v-if="canReset && mapHasChanged" href="#" @click.prevent="resetMap" class="!text-red-400 text-xs">[-] Reset map</a></div>
         </div>
         <div v-if="this.meta.pro" class="my-2">
             <div v-show="stylesExpanded">
                 <div class="help-block"><p>Paste in the styles as JSON.</p></div>
                 <textarea-input v-model="style"></textarea-input>
-                <div class="text-grey text-xs">Need help? Check out the <a href="https://mapstyle.withgoogle.com/" target="_blank">style tool</a> or <a href="https://snazzymaps.com/" target="_blank">Snazzy Maps</a>.</div>
+                <div class="text-gray-600 text-xs">Need help? Check out the <a href="https://mapstyle.withgoogle.com/" target="_blank">style tool</a> or <a href="https://snazzymaps.com/" target="_blank">Snazzy Maps</a>.</div>
                 <button @click.prevent="stylesExpanded = false" class="btn mt-2">Hide styles</button>
             </div>
             <button v-show="!stylesExpanded" @click.prevent="stylesExpanded = true" class="btn">Show styles</button>
