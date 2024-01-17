@@ -5,7 +5,7 @@
     "src": "resources/css/addon.css"
   },
   "resources/js/addon.js": {
-    "file": "assets/addon-8c4738f5.js",
+    "file": "assets/addon-336c0512.js",
     "isEntry": true,
     "src": "resources/js/addon.js"
   }

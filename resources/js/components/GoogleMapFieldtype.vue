@@ -121,11 +121,9 @@ export default {
             })
 
             if (this.markerLat && this.markerLng) {
-                this.addMarker({
-                    lat: Number.parseFloat(this.markerLat),
-                    lng: Number.parseFloat(this.markerLng),
-                })
-
+                this.addMarker(
+                    new google.maps.LatLng(Number.parseFloat(this.markerLat), Number.parseFloat(this.markerLng))
+                )
             }
         }
 
@@ -164,11 +162,15 @@ export default {
         addMarker (position) {
             this.marker.setMap(this.map)
             this.marker.setPosition(position)
+            this.markerLat = position.lat()
+            this.markerLng = position.lng()
             this.hasMarker = true
         },
         removeMarker () {
             this.marker.setPosition(null)
             this.marker.setMap(null)
+            this.markerLat = null
+            this.markerLng = null
             this.hasMarker = false
         },
         resetMap () {
