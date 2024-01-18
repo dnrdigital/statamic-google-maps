@@ -9,7 +9,8 @@
             </div>
             <div><a v-if="canReset && mapHasChanged" href="#" @click.prevent="resetMap" class="!text-red-400 text-xs">[-] Reset map</a></div>
         </div>
-        <div v-if="this.meta.pro" class="my-2">
+        <div><label><input type="checkbox" v-model="showControls" /> Map controls</label></div>
+        <div v-if="this.meta.pro && !config.hideStyles" class="my-2">
             <div v-show="stylesExpanded">
                 <div class="help-block"><p>Paste in the styles as JSON.</p></div>
                 <textarea-input v-model="style"></textarea-input>
@@ -33,6 +34,7 @@ export default {
             zoom: null,
             type: null,
             style: null,
+            showControls: false,
             map: null,
             marker: null,
             hasMarker: false,
@@ -63,6 +65,9 @@ export default {
         style () {
             this.saveLocation()
         },
+        showControls () {
+            this.saveLocation()
+        },
     },
     computed: {
         hasGeocoder () {
@@ -89,6 +94,7 @@ export default {
         this.zoom = this.value.zoom || this.config.initial_zoom || 16
         this.type = this.value.type || this.config.initial_type || 'roadmap'
         this.style = this.value.style
+        this.showControls = this.value.showControls
 
         this.map = new google.maps.Map(this.$refs.map, {
             zoom: Number(this.zoom),
@@ -193,6 +199,7 @@ export default {
                 zoom: this.zoom,
                 type: this.type,
                 style: this.style,
+                showControls: this.showControls,
             })
         },
         findPosition () {
