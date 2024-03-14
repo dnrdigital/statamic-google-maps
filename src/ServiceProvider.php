@@ -12,8 +12,12 @@ class ServiceProvider extends AddonServiceProvider
         \Jezzdk\StatamicGoogleMaps\Tags\MapScript::class,
     ];
 
-    protected $scripts = [
-        __DIR__ . '/../dist/js/map.js',
+    protected $vite = [
+        'input' => [
+            'resources/js/addon.js',
+            'resources/css/addon.css',
+        ],
+        'publicDirectory' => 'dist',
     ];
 
     protected $fieldtypes = [

@@ -3,14 +3,18 @@
         <input v-if="hasGeocoder" type="text" v-model="location" @keyup.enter="findPosition" placeholder="Search location" class="input-text">
         <div class="w-full h-96" ref="map"></div>
         <div class="flex justify-between">
-            <div><a v-if="hasMarker" href="#" @click.prevent="removeMarker" class="text-red text-xs">[x] Remove marker</a></div>
-            <div><a v-if="canReset && mapHasChanged" href="#" @click.prevent="resetMap" class="text-red text-xs">[-] Reset map</a></div>
+            <div>
+                <a v-if="hasMarker" href="#" @click.prevent="removeMarker" class="!text-red-400 text-xs">[x] Remove marker</a>
+                <a v-else-if="config.markers" href="#" @click.prevent="addMarker(map.getCenter())" class="text-xs">[+] Add marker</a>
+            </div>
+            <div><a v-if="canReset && mapHasChanged" href="#" @click.prevent="resetMap" class="!text-red-400 text-xs">[-] Reset map</a></div>
         </div>
-        <div v-if="this.meta.pro" class="my-2">
+        <div><label><input type="checkbox" v-model="showControls" /> Map controls</label></div>
+        <div v-if="this.meta.pro && !config.hideStyles" class="my-2">
             <div v-show="stylesExpanded">
                 <div class="help-block"><p>Paste in the styles as JSON.</p></div>
                 <textarea-input v-model="style"></textarea-input>
-                <div class="text-grey text-xs">Need help? Check out the <a href="https://mapstyle.withgoogle.com/" target="_blank">style tool</a> or <a href="https://snazzymaps.com/" target="_blank">Snazzy Maps</a>.</div>
+                <div class="text-gray-600 text-xs">Need help? Check out the <a href="https://mapstyle.withgoogle.com/" target="_blank">style tool</a> or <a href="https://snazzymaps.com/" target="_blank">Snazzy Maps</a>.</div>
                 <button @click.prevent="stylesExpanded = false" class="btn mt-2">Hide styles</button>
             </div>
             <button v-show="!stylesExpanded" @click.prevent="stylesExpanded = true" class="btn">Show styles</button>
@@ -30,6 +34,7 @@ export default {
             zoom: null,
             type: null,
             style: null,
+            showControls: false,
             map: null,
             marker: null,
             hasMarker: false,
@@ -60,6 +65,9 @@ export default {
         style () {
             this.saveLocation()
         },
+        showControls () {
+            this.saveLocation()
+        },
     },
     computed: {
         hasGeocoder () {
@@ -86,6 +94,7 @@ export default {
         this.zoom = this.value.zoom || this.config.initial_zoom || 16
         this.type = this.value.type || this.config.initial_type || 'roadmap'
         this.style = this.value.style
+        this.showControls = this.value.showControls
 
         this.map = new google.maps.Map(this.$refs.map, {
             zoom: Number(this.zoom),
@@ -118,11 +127,9 @@ export default {
             })
 
             if (this.markerLat && this.markerLng) {
-                this.addMarker({
-                    lat: Number.parseFloat(this.markerLat),
-                    lng: Number.parseFloat(this.markerLng),
-                })
-
+                this.addMarker(
+                    new google.maps.LatLng(Number.parseFloat(this.markerLat), Number.parseFloat(this.markerLng))
+                )
             }
         }
 
@@ -161,11 +168,15 @@ export default {
         addMarker (position) {
             this.marker.setMap(this.map)
             this.marker.setPosition(position)
+            this.markerLat = position.lat()
+            this.markerLng = position.lng()
             this.hasMarker = true
         },
         removeMarker () {
             this.marker.setPosition(null)
             this.marker.setMap(null)
+            this.markerLat = null
+            this.markerLng = null
             this.hasMarker = false
         },
         resetMap () {
@@ -188,6 +199,7 @@ export default {
                 zoom: this.zoom,
                 type: this.type,
                 style: this.style,
+                showControls: this.showControls,
             })
         },
         findPosition () {

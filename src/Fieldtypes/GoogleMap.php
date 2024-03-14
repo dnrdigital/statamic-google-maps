@@ -33,7 +33,9 @@ class GoogleMap extends Fieldtype
 
     public function augment($value)
     {
-        $value['showControls'] = $this->config('showControls', false);
+        if (!isset($value['showControls'])) {
+            $value['showControls'] = $this->config('showControls', false);
+        }
 
         return MapHelper::convertToHtml($value);
     }
@@ -96,7 +98,7 @@ class GoogleMap extends Fieldtype
             ],
             'initial_zoom' => [
                 'display' => 'Initial zoom level',
-                'instructions' => 'Set a zoom level from 1 to 21.',
+                'instructions' => 'Set a zoom level from 1 (far) to 21 (near).',
                 'type' => 'text',
                 'default' => '16',
                 'width' => 50
@@ -123,8 +125,15 @@ class GoogleMap extends Fieldtype
                 'width' => 50
             ],
             'showControls' => [
-                'display' => 'Show controls',
-                'instructions' => 'Display the map with the default Google Map controls.',
+                'display' => 'Show controls (deprecated)',
+                'instructions' => 'This can now be set on the resource and will be removed in a later release.',
+                'type' => 'toggle',
+                'default' => false,
+                'width' => 50
+            ],
+            'hideStyles' => [
+                'display' => 'Disable custom styles',
+                'instructions' => 'Remove the ability to apply custom styles.',
                 'type' => 'toggle',
                 'default' => false,
                 'width' => 50
